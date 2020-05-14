@@ -1,4 +1,5 @@
 using Amazon.CDK;
+using Amazon.CDK.AWS.SSM;
 
 namespace Infrastructure
 {
@@ -6,7 +7,13 @@ namespace Infrastructure
     {
         internal InfrastructureStack(Construct scope, string id, IStackProps props = null) : base(scope, id, props)
         {
-            // The code that defines your stack goes here
+            // Parameters
+            var domainName = new Amazon.CDK.AWS.SSM.CfnParameter(scope, "DomainNameParameter", new Amazon.CDK.AWS.SSM.CfnParameterProps(){
+                Name = $"/{id}/DomainName",
+                Description = "The Domain Name the application is running on",
+                Type = "String",
+                Value = ""
+            });
         }
     }
 }
